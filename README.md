@@ -8,7 +8,7 @@ The Quad Serial Peripheral Interface (QSPI) is an advanced extension of the stan
 ## Objective
 The primary goal of this project is to create a versatile QSPI flash memory controller that can interface seamlessly with a wide range of flash memory devices. This controller is designed to support multiple SPI modes, while accommodating various CPOL and CPHA configurations.
 
-##  Key learning outcomes:
+##  Key learning outcomes
 The key learnings are as follows:
 ### Understanding SPI and QSPI Protocols:
 Gained in-depth knowledge of Single, Dual, and Quad SPI interfaces.
