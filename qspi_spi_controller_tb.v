@@ -27,9 +27,13 @@ module qspi_spi_controller_tb;
     parameter ADDRESS_WIDTH = 32;
     parameter COMMAND_WIDTH = 8;
 //    parameter MODE = "QSPI";  // Default mode active
-    parameter MODE = "SPI";  // Uncomment to test SPI mode
+    parameter MODE = MODE_SPI;  // Uncomment to test SPI mode
 //    parameter MODE = "DPI";  // Uncomment to test DPI mode
-
+    
+    // SPI mode definitions
+    parameter MODE_SPI     = 2'b00;    // SPI  Mode will be active
+    parameter MODE_DPI     = 2'b01;    // DPI Mode will be active
+    parameter MODE_QSPI    = 2'b10;    // QSPI Mode will be active
     // Clock and reset
     reg clk;
     reg reset_n;
@@ -39,8 +43,8 @@ module qspi_spi_controller_tb;
     reg [COMMAND_WIDTH-1:0] command;
     reg [ADDRESS_WIDTH-1:0] address;
     reg start;
-    reg [1:0] CPOL;  // Clock Polarity
-    reg [1:0] CPHA;  // Clock Phase
+    reg CPOL;  // Clock Polarity
+    reg CPHA;  // Clock Phase
 
     // Outputs
     wire [DATA_WIDTH-1:0] data_out;
@@ -83,8 +87,8 @@ module qspi_spi_controller_tb;
         data_in = 0;
         command = 0;
         address = 0;
-        CPOL = 2'b00;  // Default CPOL
-        CPHA = 2'b00;  // Default CPHA
+        CPOL = 1'b0;  // Default CPOL
+        CPHA = 1'b0;  // Default CPHA
 
         // Apply reset
         #10;
@@ -92,7 +96,7 @@ module qspi_spi_controller_tb;
 
         // Check the mode and apply the appropriate test case
         case (MODE)
-            "QSPI": begin
+            MODE_QSPI: begin
                 // Test case 1: QSPI Mode
                 #10;
                 command = 8'hA5; // Example command for QSPI
@@ -104,7 +108,7 @@ module qspi_spi_controller_tb;
 
             end
 
-            "SPI": begin
+            MODE_SPI: begin
                 // Test case 2: SPI Mode
                 #10;
                 command = 8'h5A; // Example command for SPI
@@ -116,7 +120,7 @@ module qspi_spi_controller_tb;
 
             end
 
-            "DPI": begin
+            MODE_DPI: begin
                 // Test case 3: Dual SPI (DPI) Mode
                 #10;
                 command = 8'hF0; // Example command for DPI
